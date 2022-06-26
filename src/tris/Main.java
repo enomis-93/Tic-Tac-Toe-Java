@@ -23,31 +23,39 @@ public class Main {
 						grid[x][y] = " ";
 					}
 				}
-//			Scanner scan = new Scanner(System.in);
-//			System.out.println("Benvenuto nel gioco del tris !");
-//			System.out.println("Giocatore 1 inserisci il tuo nome:");
-//			String player1 = scan.nextLine();
-//			System.out.println("Giocatore 2 inserisci il tuo nome:");
-//			String player2 = scan.nextLine();	
+				Scanner scan = new Scanner(System.in);
+				System.out.println("Benvenuto nel gioco del Tris !");
+				System.out.println("Giocatore 1 inserisci il tuo nome:");
+				String player1 = scan.nextLine();
+				System.out.println("Giocatore 2 inserisci il tuo nome:");
+				String player2 = scan.nextLine();
+
+				System.out.println("GAME START!");
 
 				while (Main.numeroTurni < maxTurni || gameActive == false) {
 					if (Main.numeroTurni % 2 == 0) {
-						playerChoice(grid, "Giocatore 1", "X");
+						playerChoice(grid, player1, "X");
 					} else if (Main.numeroTurni % 2 != 0) {
-						playerChoice(grid, "Giocatore 2", "O");
+						playerChoice(grid, player2, "O");
 					}
 
 					if (checkWinner(grid, "X")) {
-						System.out.println("Giocatore 1 Vince !");
+						System.out.println(player1 + " Vince !");
 						printGrid(grid);
 						gameActive = false;
 						break;
 					}
 
 					if (checkWinner(grid, "O")) {
-						System.out.println("Giocatore 2 Vince !");
+						System.out.println(player2 + " Vince !");
 						printGrid(grid);
 						gameActive = false;
+						break;
+					}
+					
+					// Caso pareggio
+					if (Main.numeroTurni == 9) {
+						System.out.println("Pareggio !");
 						break;
 					}
 //					if (isPlayerWin(grid, "X")) {
@@ -124,10 +132,8 @@ public class Main {
 			String[] coordinates = inputs.split(",");
 			int x = Integer.parseInt(coordinates[0]);
 			int y = Integer.parseInt(coordinates[1]);
-			
 
-			
-			if (x < grid.length -1 && y < grid.length -1) {
+			if (x <= grid.length - 1 && y <= grid.length - 1) {
 				// Verifica che la cella non sia già occupata, prima di scrivere il valore
 				if (grid[x][y] != " ") {
 					isCellEmpty = false;
@@ -138,7 +144,7 @@ public class Main {
 					Main.numeroTurni++;
 					break;
 				}
-			}else {
+			} else {
 				System.out.println("Coordinate non valide,\nReinserisci le coordinate!");
 				break;
 			}
@@ -273,6 +279,17 @@ public class Main {
 			}
 		}
 		return false;
+	}
+	
+	public static boolean isDraw(String[][] grid) {
+		for (int x = 0; x < grid.length; x++) {
+			for (int y = 0; y < grid.length; y++) {
+				if (!(grid[x][y]).equals(" ")) {
+					
+				}
+				return true;
+			}
+		}
 	}
 
 }
