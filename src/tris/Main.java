@@ -23,14 +23,12 @@ public class Main {
 						grid[x][y] = " ";
 					}
 				}
-				Scanner scan = new Scanner(System.in);
-				System.out.println("Benvenuto nel gioco del Tris !");
-				System.out.println("Giocatore 1 inserisci il tuo nome:");
-				String player1 = scan.nextLine();
-				System.out.println("Giocatore 2 inserisci il tuo nome:");
-				String player2 = scan.nextLine();
-
-				System.out.println("GAME START!");
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Benvenuto nel gioco del tris !");
+			System.out.println("Giocatore 1 inserisci il tuo nome:");
+			String player1 = scan.nextLine();
+			System.out.println("Giocatore 2 inserisci il tuo nome:");
+			String player2 = scan.nextLine();	
 
 				while (Main.numeroTurni < maxTurni || gameActive == false) {
 					if (Main.numeroTurni % 2 == 0) {
@@ -53,10 +51,8 @@ public class Main {
 						break;
 					}
 					
-					// Caso pareggio
-					if (Main.numeroTurni == 9) {
-						System.out.println("Pareggio !");
-						break;
+					if(Main.numeroTurni == 9) {
+						
 					}
 //					if (isPlayerWin(grid, "X")) {
 //						System.out.println(" di X, Giocatore 1 ha vinto");
@@ -132,8 +128,10 @@ public class Main {
 			String[] coordinates = inputs.split(",");
 			int x = Integer.parseInt(coordinates[0]);
 			int y = Integer.parseInt(coordinates[1]);
+			
 
-			if (x <= grid.length - 1 && y <= grid.length - 1) {
+			
+			if (x < grid.length -1 && y < grid.length -1) {
 				// Verifica che la cella non sia già occupata, prima di scrivere il valore
 				if (grid[x][y] != " ") {
 					isCellEmpty = false;
@@ -144,7 +142,7 @@ public class Main {
 					Main.numeroTurni++;
 					break;
 				}
-			} else {
+			}else {
 				System.out.println("Coordinate non valide,\nReinserisci le coordinate!");
 				break;
 			}
@@ -279,17 +277,6 @@ public class Main {
 			}
 		}
 		return false;
-	}
-	
-	public static boolean isDraw(String[][] grid) {
-		for (int x = 0; x < grid.length; x++) {
-			for (int y = 0; y < grid.length; y++) {
-				if (!(grid[x][y]).equals(" ")) {
-					
-				}
-				return true;
-			}
-		}
 	}
 
 }
