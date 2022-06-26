@@ -51,8 +51,11 @@ public class Main {
 						break;
 					}
 					
-					if(Main.numeroTurni == 9) {
-						
+					if(Main.numeroTurni == 9 && (!checkWinner(grid, "O") || !checkWinner(grid, "X")) ) {
+						System.out.println("La partita finisce in pareggio !");
+						printGrid(grid);
+						gameActive = false;
+						break;
 					}
 //					if (isPlayerWin(grid, "X")) {
 //						System.out.println(" di X, Giocatore 1 ha vinto");
