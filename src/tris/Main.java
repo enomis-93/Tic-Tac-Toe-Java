@@ -4,9 +4,8 @@ import java.util.Scanner;
 
 public class Main {
 
-
-
 	public static int numeroTurni = 0;
+
 	public static void main(String[] args) {
 		int numeroTurni = Main.numeroTurni;
 
@@ -37,19 +36,16 @@ public class Main {
 					} else if (Main.numeroTurni % 2 != 0) {
 						playerChoice(grid, "Giocatore 2", "O");
 					}
-					
-			
-					if(checkWinner(grid, "X")) {
-						System.out.println();
-						System.out.println("Giocatore 1 ha vinto");
+
+					if (checkWinner(grid, "X")) {
+						System.out.println("Giocatore 1 Vince !");
 						printGrid(grid);
 						gameActive = false;
 						break;
 					}
-					
-					if(checkWinner(grid, "O")) {
-						System.out.println();
-						System.out.println("Giocatore 2 ha vinto");
+
+					if (checkWinner(grid, "O")) {
+						System.out.println("Giocatore 2 Vince !");
 						printGrid(grid);
 						gameActive = false;
 						break;
@@ -66,7 +62,7 @@ public class Main {
 //						gameActive = false;
 //						break;
 //					}
-					
+
 				}
 
 			} while (gameActive);
@@ -123,20 +119,27 @@ public class Main {
 			printGrid(grid);
 			System.out.println();
 
-			System.out.print("Inserisci coordinate (" + symbol + "):");
-			String inputs = scan.nextLine();
+			System.out.print("Inserisci coordinate (" + symbol + "), nel formato (x,y):");
+			String inputs = scan.next();
 			String[] coordinates = inputs.split(",");
 			int x = Integer.parseInt(coordinates[0]);
 			int y = Integer.parseInt(coordinates[1]);
+			
 
-			// Verifica che la cella non sia già occupata, prima di scrivere il valore
-			if (grid[x][y] != " ") {
-				isCellEmpty = false;
-				System.out.print("La cella contiene già un simbolo, ripetere l'inserimento");
-				continue;
-			} else {
-				grid[x][y] = symbol;
-				Main.numeroTurni++;
+			
+			if (x < grid.length -1 && y < grid.length -1) {
+				// Verifica che la cella non sia già occupata, prima di scrivere il valore
+				if (grid[x][y] != " ") {
+					isCellEmpty = false;
+					System.out.print("La cella contiene già un simbolo, ripetere l'inserimento");
+					continue;
+				} else {
+					grid[x][y] = symbol;
+					Main.numeroTurni++;
+					break;
+				}
+			}else {
+				System.out.println("Coordinate non valide,\nReinserisci le coordinate!");
 				break;
 			}
 		} while (isCellEmpty);
@@ -146,31 +149,26 @@ public class Main {
 
 	public static boolean checkWinner(String[][] grid, String symbol) {
 		if (rowFull(grid, symbol)) {
-			System.out.println("Giocatore 1 ha vinto");
-			printGrid(grid);
+			System.out.println("Riga di " + symbol);
 			return true;
 		}
 
 		if (columnFull(grid, symbol)) {
-			System.out.println("Giocatore 1 ha vinto");
-			printGrid(grid);
+			System.out.println("Colonna di " + symbol);
 			return true;
 		}
-		
-		if (firstDiagonal(grid, symbol)) {
-			System.out.println("Diagonale Giocatore 1 ha vinto");
-			printGrid(grid);
-			return true;
-		}
-		
-		if (secondDiagonal(grid, symbol)) {
-			System.out.println("Diagonale Giocatore 1 ha vinto");
-			printGrid(grid);
-			return true;
-		}
-		
-		return false;
 
+		if (firstDiagonal(grid, symbol)) {
+			System.out.println("Diagonale di " + symbol);
+			return true;
+		}
+
+		if (secondDiagonal(grid, symbol)) {
+			System.out.println("Diagonale di " + symbol);
+			return true;
+		}
+
+		return false;
 
 //		for (int x = 0; x < grid.length; x++) {
 //			for (int y = 0; y < grid.length; y++) {
@@ -259,7 +257,7 @@ public class Main {
 		}
 		return false;
 	}
-	
+
 	public static boolean secondDiagonal(String[][] grid, String symbol) {
 		int diagonal = 0;
 		for (int x = 0; x < grid.length; x++) {
