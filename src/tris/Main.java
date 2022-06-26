@@ -131,7 +131,7 @@ public class Main {
 			
 
 			
-			if (x < grid.length -1 && y < grid.length -1) {
+			if (x <= grid.length -1 && y <= grid.length -1) {
 				// Verifica che la cella non sia già occupata, prima di scrivere il valore
 				if (grid[x][y] != " ") {
 					isCellEmpty = false;
