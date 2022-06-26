@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 public class Main {
 
-	static int numeroTurni = 0;
 
+
+	public static int numeroTurni = 0;
 	public static void main(String[] args) {
+		int numeroTurni = Main.numeroTurni;
 
 		String[][] grid = new String[3][3];
 
@@ -16,6 +18,7 @@ public class Main {
 
 		do {
 			do {
+				// Popolo la tabella con spazi vuoti per evitare di avere valori null
 				for (int x = 0; x < grid.length; x++) {
 					for (int y = 0; y < grid.length; y++) {
 						grid[x][y] = " ";
@@ -28,11 +31,28 @@ public class Main {
 //			System.out.println("Giocatore 2 inserisci il tuo nome:");
 //			String player2 = scan.nextLine();	
 
-				for (int i = 0; i < maxTurni || gameActive == false; i++) {
-					if (i % 2 == 0) {
+				while (Main.numeroTurni < maxTurni || gameActive == false) {
+					if (Main.numeroTurni % 2 == 0) {
 						playerChoice(grid, "Giocatore 1", "X");
-					} else if (i % 2 != 0) {
+					} else if (Main.numeroTurni % 2 != 0) {
 						playerChoice(grid, "Giocatore 2", "O");
+					}
+					
+			
+					if(checkWinner(grid, "X")) {
+						System.out.println();
+						System.out.println("Giocatore 1 ha vinto");
+						printGrid(grid);
+						gameActive = false;
+						break;
+					}
+					
+					if(checkWinner(grid, "O")) {
+						System.out.println();
+						System.out.println("Giocatore 2 ha vinto");
+						printGrid(grid);
+						gameActive = false;
+						break;
 					}
 //					if (isPlayerWin(grid, "X")) {
 //						System.out.println(" di X, Giocatore 1 ha vinto");
@@ -46,34 +66,7 @@ public class Main {
 //						gameActive = false;
 //						break;
 //					}
-					if (rowFull(grid, "X")) {
-						System.out.println("Giocatore 1 ha vinto");
-						printGrid(grid);
-						gameActive = false;
-						break;
-					}
-
-					if (columnFull(grid, "X")) {
-						System.out.println("Giocatore 1 ha vinto");
-						printGrid(grid);
-						gameActive = false;
-						break;
-					}
 					
-					if (firstDiagonal(grid, "X")) {
-						System.out.println("Diagonale Giocatore 1 ha vinto");
-						printGrid(grid);
-						gameActive = false;
-						break;
-					}
-					
-					if (secondDiagonal(grid, "X")) {
-						System.out.println("Diagonale Giocatore 1 ha vinto");
-						printGrid(grid);
-						gameActive = false;
-						break;
-					}
-
 				}
 
 			} while (gameActive);
@@ -143,7 +136,7 @@ public class Main {
 				continue;
 			} else {
 				grid[x][y] = symbol;
-				numeroTurni++;
+				Main.numeroTurni++;
 				break;
 			}
 		} while (isCellEmpty);
@@ -151,7 +144,33 @@ public class Main {
 		System.out.println();
 	}
 
-	public static void checkWinner(String[][] grid, String symbol) {
+	public static boolean checkWinner(String[][] grid, String symbol) {
+		if (rowFull(grid, symbol)) {
+			System.out.println("Giocatore 1 ha vinto");
+			printGrid(grid);
+			return true;
+		}
+
+		if (columnFull(grid, symbol)) {
+			System.out.println("Giocatore 1 ha vinto");
+			printGrid(grid);
+			return true;
+		}
+		
+		if (firstDiagonal(grid, symbol)) {
+			System.out.println("Diagonale Giocatore 1 ha vinto");
+			printGrid(grid);
+			return true;
+		}
+		
+		if (secondDiagonal(grid, symbol)) {
+			System.out.println("Diagonale Giocatore 1 ha vinto");
+			printGrid(grid);
+			return true;
+		}
+		
+		return false;
+
 
 //		for (int x = 0; x < grid.length; x++) {
 //			for (int y = 0; y < grid.length; y++) {
